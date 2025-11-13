@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prasamita Bangal - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    animation: { 'pop-up-name': 'popUpName 0.8s ease-out forwards' },
+                    keyframes: {
+                        popUpName: {
+                            '0%': { opacity: '0', transform: 'translateY(20px) scale(0.9)' },
+                            '70%': { opacity: '0.8', transform: 'translateY(-5px) scale(1.05)' },
+                            '100%': { opacity: '1', transform: 'translateY(0) scale(1)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        .dark ::-webkit-scrollbar-track { background: #1f2937; }
+        ::-webkit-scrollbar-thumb { background: #4f46e5; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-thumb { background: #2dd4bf; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 transition-colors duration-300 text-gray-900 dark:text-white font-sans">
+
+    <nav class="fixed w-full z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md transition duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="text-2xl font-bold text-indigo-600 dark:text-teal-400 cursor-pointer" onclick="window.scrollTo(0,0)">P. Bangal</div>
+                <div class="flex items-center space-x-6">
+                    <div class="hidden md:flex space-x-6 font-medium text-sm text-gray-600 dark:text-gray-300">
+                        <a href="#about" class="hover:text-indigo-600 dark:hover:text-teal-400 transition">About</a>
+                        <a href="#skills" class="hover:text-indigo-600 dark:hover:text-teal-400 transition">Skills</a>
+                        <a href="#projects" class="hover:text-indigo-600 dark:hover:text-teal-400 transition">Projects</a>
+                        <a href="#achievements" class="hover:text-indigo-600 dark:hover:text-teal-400 transition">Achievements</a>
+                        <a href="#contact" class="hover:text-indigo-600 dark:hover:text-teal-400 transition">Contact</a>
+                    </div>
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition text-gray-700 dark:text-gray-300">
+                        <span id="sun-icon" class="hidden">☀️</span><span id="moon-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="pt-32 pb-20 min-h-screen flex flex-col justify-center px-4 bg-gray-50 dark:bg-gray-900">
+        <div class="max-w-6xl mx-auto w-full">
+            <div class="text-center mb-12">
+                <h1 class="text-5xl md:text-7xl font-extrabold mb-6 animate-pop-up-name">Hi, I’m <span class="text-indigo-600 dark:text-teal-400">Prasamita Bangal</span> 👋</h1>
+                <p class="text-xl text-gray-600 dark:text-gray-400 font-medium mb-4 max-w-2xl mx-auto">I’m Prasamita, a 3rd-year Integrated M.Tech Computer Science student specializing in AI, NLP, and Cybersecurity.</p>
+                <p class="text-2xl h-8 font-light mb-10"><span id="typing-text" class="font-semibold text-indigo-600 dark:text-teal-400"></span><span class="animate-pulse">|</span></p>
+                <div class="space-x-4 mb-12">
+                    <button onclick="document.getElementById('projects').scrollIntoView({behavior: 'smooth'})" class="px-8 py-3 bg-indigo-600 text-white font-semibold rounded-full shadow-lg hover:bg-indigo-700 transition transform hover:scale-105">View My Work</button>
+                    <button onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})" class="px-8 py-3 bg-white dark:bg-gray-800 text-indigo-600 dark:text-teal-400 border border-indigo-600 dark:border-teal-400 font-semibold rounded-full shadow-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition">Contact Me</button>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-200 dark:border-gray-700 pt-8 mb-8 reveal">
+                <h2 class="text-2xl font-bold text-center mb-6 text-gray-800 dark:text-gray-200">Featured Projects</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6" id="featured-projects-grid"></div>
+            </div>
+
+            <div class="text-center border-t border-gray-200 dark:border-gray-700 pt-6 reveal">
+                <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-4">Explore My Work</h3>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button onclick="filterAndScroll('AI/ML & NLP')" class="px-4 py-2 text-sm bg-indigo-500 text-white rounded-full hover:bg-indigo-600 transition">🔹 AI / ML Projects</button>
+                    <button onclick="filterAndScroll('Web Development')" class="px-4 py-2 text-sm bg-teal-500 text-white rounded-full hover:bg-teal-600 transition">🔹 Web Development</button>
+                    <button onclick="filterAndScroll('Cybersecurity & Forensics')" class="px-4 py-2 text-sm bg-red-500 text-white rounded-full hover:bg-red-600 transition">🔹 Cybersecurity</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-24 bg-white dark:bg-gray-800 px-4">
+        <div class="max-w-6xl mx-auto reveal">
+            <h2 class="text-4xl font-bold text-center mb-12">About Me</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="space-y-6 text-lg text-gray-700 dark:text-gray-300" id="bio-container"></div>
+                <div class="pl-0 md:pl-4">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-900 dark:text-white">Core Tech Stack</h3>
+                    <div class="grid grid-cols-4 gap-4 mb-10" id="core-stack-container"></div>
+                    <h3 class="text-2xl font-semibold mb-6">My Journey</h3>
+                    <div class="border-l-4 border-indigo-200 dark:border-teal-700 pl-6 space-y-8 relative" id="timeline-container"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-24 bg-gray-50 dark:bg-gray-900 px-4">
+        <div class="max-w-7xl mx-auto reveal">
+            <h2 class="text-4xl font-bold text-center mb-12">Technical Toolkit</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="skills-container"></div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-24 bg-white dark:bg-gray-800 px-4">
+        <div class="max-w-7xl mx-auto reveal">
+            <h2 class="text-4xl font-bold text-center mb-8">Full Projects Showcase</h2>
+            <div class="flex flex-wrap justify-center gap-3 mb-12" id="filter-buttons">
+                <button onclick="renderProjects('All')" class="px-5 py-2 rounded-full font-semibold bg-indigo-600 text-white shadow-md transition">All</button>
+                <button onclick="renderProjects('AI/ML & NLP')" class="px-5 py-2 rounded-full font-semibold bg-gray-200 dark:bg-gray-700 hover:bg-indigo-200 dark:hover:bg-gray-600 transition">AI/ML</button>
+                <button onclick="renderProjects('Web Development')" class="px-5 py-2 rounded-full font-semibold bg-gray-200 dark:bg-gray-700 hover:bg-teal-200 dark:hover:bg-gray-600 transition">Web Dev</button>
+                <button onclick="renderProjects('Cybersecurity & Forensics')" class="px-5 py-2 rounded-full font-semibold bg-gray-200 dark:bg-gray-700 hover:bg-red-200 dark:hover:bg-gray-600 transition">Cybersecurity</button>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid"></div>
+            <div class="mt-20">
+                <h3 class="text-2xl font-bold text-center mb-8">Cybersecurity Engagements</h3>
+                <div class="flex justify-center" id="cyber-container"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="achievements" class="py-24 bg-gray-50 dark:bg-gray-900 px-4">
+        <div class="max-w-5xl mx-auto reveal">
+            <h2 class="text-4xl font-bold text-center mb-12">Achievements & Experience</h2>
+            <div class="grid gap-8">
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                    <h3 class="text-2xl font-bold text-indigo-600 dark:text-teal-400 mb-4 flex items-center">
+                        <svg class="w-7 h-7 mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h-4c-1.1 0-2 .9-2 2v2H8V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-2zM4 6h2v2H4V6zm14 12H6V10h12v8z"/></svg>
+                        Experience & Leadership
+                    </h3>
+                    <div id="experience-container" class="space-y-6"></div>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                    <h3 class="text-2xl font-bold text-teal-600 dark:text-teal-400 mb-4 flex items-center">
+                        <svg class="w-7 h-7 mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 17.5L14.73 20L19 16M17 19H7C5.34 19 4 17.66 4 16V6C4 4.34 5.34 3 7 3H17C18.66 3 20 4.34 20 6V16C20 17.66 18.66 19 17 19Z"/></svg>
+                        Awards & Extracurriculars
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div><h4 class="font-bold mb-2 text-lg">Awards</h4><ul id="awards-list" class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300"></ul></div>
+                        <div>
+                             <h4 class="font-bold mb-2 text-lg flex items-center">
+                                <svg class="w-5 h-5 mr-2 text-indigo-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+                                Extracurriculars
+                             </h4>
+                             <div id="extra-list" class="flex flex-wrap gap-2"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <a href="Prasamita_Bangal_Resume.pdf" download="Prasamita_Bangal_Resume" class="inline-block px-8 py-3 bg-indigo-600 text-white font-semibold rounded-full shadow-lg hover:bg-indigo-700 transform hover:scale-105 transition duration-300">
+                        Download Resume (PDF)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 bg-white dark:bg-gray-800 px-4 text-center reveal">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold mb-12">Let's Connect</h2>
+            <div class="flex flex-wrap justify-center gap-6 mb-12">
+                <a href="mailto:prasamita.bangal.pb@gmail.com" class="px-6 py-4 bg-gray-100 dark:bg-gray-700 rounded-xl hover:shadow-xl transition flex items-center gap-3 border border-gray-200 dark:border-gray-600">📧 <span class="font-medium">prasamita.bangal.pb@gmail.com</span></a>
+                <a href="https://linkedin.com/in/prasamita-bangal-3b1088215" target="_blank" class="px-6 py-4 bg-gray-100 dark:bg-gray-700 rounded-xl hover:shadow-xl transition flex items-center gap-3 border border-gray-200 dark:border-gray-600">💼 <span class="font-medium">LinkedIn</span></a>
+                <a href="https://github.com/prasamitab" target="_blank" class="px-6 py-4 bg-gray-100 dark:bg-gray-700 rounded-xl hover:shadow-xl transition flex items-center gap-3 border border-gray-200 dark:border-gray-600">🐙 <span class="font-medium">GitHub</span></a>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-700 p-8 rounded-xl shadow-2xl text-left">
+                <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">Send a Message</h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm">Note: This form is a placeholder. Please use the direct email link above for reliable contact.</p>
+                <form onsubmit="event.preventDefault(); alert('Thank you! This is a demo form.');">
+                    <input type="text" placeholder="Your Name" required class="w-full p-3 mb-4 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition" />
+                    <input type="email" placeholder="Your Email" required class="w-full p-3 mb-4 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition" />
+                    <textarea placeholder="Your Message" rows="4" required class="w-full p-3 mb-6 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition"></textarea>
+                    <button type="submit" class="w-full px-4 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition duration-300">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 text-center text-sm text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">&copy; 2025 Prasamita Bangal. Built with React & Tailwind.</footer>
+
+    <div id="project-modal" class="fixed inset-0 z-[100] hidden bg-gray-900/80 backdrop-blur-sm flex items-center justify-center p-4" onclick="closeModal()">
+        <div class="bg-white dark:bg-gray-800 w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-xl shadow-2xl transform transition-all scale-95" id="modal-content" onclick="event.stopPropagation()"></div>
+    </div>
+
+    <script>
+        // --- DATA ---
+        const portfolioData = {
+            bio: {
+                paragraph1: "I'm a 3rd-year Integrated M.Tech CSE student passionate about learning, building, and combining creativity with technology. My work is balanced across **AI/ML (CSIR-IICT)**, **scalable web applications**, and **Cybersecurity research**. I believe in solving real-world problems through a blend of technical strength, innovation, and thoughtful design.",
+                paragraph2: "My academic path is centered on cutting-edge **AI/ML applications**, with a strong emphasis on **security protocols** and **scalable web development**. I thrive on exploring the intersection of these fields, combining strong theoretical knowledge with practical, impactful execution in areas like **Flutter development** and **Gemini API integration**."
+            },
+            techStack: [
+                { name: 'Python', icon: 'M15 4c-1.3 0-2.3.9-2.3 2s1 2 2.3 2 2.3-.9 2.3-2-.9-2-2.3-2zM4 14.5a2.5 2.5 0 012.5-2.5h11a2.5 2.5 0 012.5 2.5v.5H4v-.5z' },
+                { name: 'C', icon: 'M18 10h-6V8h6V6H8a2 2 0 00-2 2v6c0 1.1.9 2 2 2h8a2 2 0 002-2V10z' },
+                { name: 'React', icon: 'M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-15.5V12h8.49c-.61-4.04-4.14-7-8.49-7zM12 19.5V12H3.51c.61 4.04 4.14 7 8.49 7zM12 4.5V12h-8.49c.61-4.04 4.14-7 8.49 7z' },
+                { name: 'Tailwind', icon: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-15.5V12h8.49c-.61-4.04-4.14-7-8.49-7zM12 19.5V12H3.51c.61 4.04 4.14 7 8.49 7zM12 4.5V12h-8.49c.61-4.04 4.14-7 8.49 7z' },
+                { name: 'Flask', icon: 'M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-15.5V12h8.49c-.61-4.04-4.14-7-8.49-7zM12 19.5V12H3.51c.61 4.04 4.14 7 8.49 7zM12 4.5V12h-8.49c.61-4.04 4.14-7 8.49 7z' },
+                { name: 'Scikit', icon: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-15.5V12h8.49c-.61-4.04-4.14-7-8.49-7zM12 19.5V12H3.51c.61 4.04 4.14 7 8.49 7zM12 4.5V12h-8.49c.61-4.04 4.14-7 8.49 7z' },
+                { name: 'Git', icon: 'M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-15.5V12h8.49c-.61-4.04-4.14-7-8.49-7zM12 19.5V12H3.51c.61 4.04 4.14 7 8.49 7zM12 4.5V12h-8.49c.61-4.04 4.14-7 8.49 7z' },
+                { name: 'Figma', icon: 'M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-15.5V12h8.49c-.61-4.04-4.14-7-8.49-7zM12 19.5V12H3.51c.61 4.04 4.14 7 8.49 7zM12 4.5V12h-8.49c.61-4.04 4.14-7 8.49 7z' },
+            ],
+            milestones: [
+                { year: '2028', title: 'Expected Graduation', desc: 'Integrated M.Tech CSE at Mahindra University.' },
+                { year: '2024', title: 'AI/ML Internship at CSIR-IICT', desc: 'Applied ML to healthcare/biotech data.' },
+                { year: '2023', title: 'Project Chronos & Full Stack', desc: 'Built complex API projects and Web Apps.' },
+                { year: '2022', title: 'Enrolled in Integrated M.Tech', desc: 'Core DSA, Python, and AI Fundamentals.' },
+            ],
+            skills: [
+                { category: ' AI / Machine Learning', items: ['Python', 'Scikit-learn', 'Regression', 'Classification', 'NLP', 'Gemini API', 'Computer Vision'], color: 'border-indigo-500', icon: 'M18 8h-1V6a3 3 0 00-3-3H6a3 3 0 00-3 3v12a3 3 0 003 3h12a3 3 0 003-3v-2M13 18v-4h2v4M10 18v-8h2v8M7 18v-6h2v6' },
+                { category: ' Web Development', items: ['HTML', 'CSS', 'JS', 'React', 'Tailwind', 'Flask', 'jQuery', 'Full-Stack'], color: 'border-teal-500', icon: 'M10 3L14 3L14 21L10 21ZM10 6L14 6L14 18L10 18ZM17 21L21 21L21 3L17 3Z' },
+                { category: ' Cybersecurity', items: ['Network Basics', 'Drone Forensics', 'Investigation Tools', 'Risk Mitigation', 'Security Protocols'], color: 'border-red-500', icon: 'M12 11V16M12 2L12 6M12 18L12 22M7 11H17M7 16H17M2 11H7M17 11H22M2 16H7M17 16H22M12 11L12 16M7 11H17M7 16H17' },
+                { category: ' Design & Creative', items: ['Figma', 'Canva', 'Photoshop Basics', 'Graphic Design', 'UI/UX Principles'], color: 'border-purple-500', icon: 'M10 6L3 13V17H7L14 10' },
+                { category: ' Tools & Concepts', items: ['Git', 'VS Code', 'MATLAB', 'DSA', 'OOP', 'Scientific Reporting'], color: 'border-gray-500', icon: 'M20 7H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm0 12H4V9h16v10z' }
+            ],
+            projects: [
+                { id: 1, title: 'Project Chronos', category: 'AI/ML & NLP', desc: 'AI-driven web app decoding internet slang using the Gemini and Custom Search APIs for contextual analysis. Showcases complex API chaining.', tags: ['Gemini API', 'Streamlit', 'NLP'], techNote: 'Python | Gemini API | Streamlit', color: 'indigo', icon: 'M12 2L2 12h3c0 3 2 5 5 5s5-2 5-5h3L12 2z', github: '#', demo: '#' },
+                { id: 9, title: 'AI-Driven IDS', category: 'Cybersecurity & Forensics', desc: 'Designed an AI-powered network intrusion detection system using Random Forest and SVM on the NSL-KDD dataset. Published research paper.', tags: ['Random Forest', 'SVM', 'Research'], techNote: 'Python | Scikit-learn | Pandas', color: 'red', icon: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z', github: '#', paper: '#' },
+                { id: 2, title: 'DroneTalk', category: 'AI/ML & NLP', desc: 'NLP system converting natural language commands ("Fly 50m north") into structured drone mission actions.', tags: ['NLP', 'Intent Classification'], techNote: 'Python | NLP', color: 'indigo', icon: 'M16 17V19H8V17H4V12H2L12 2L22 12H20V17H16Z', github: '#', demo: '#' },
+                { id: 4, title: 'Drone Forensics Research', category: 'Cybersecurity & Forensics', desc: 'Exploratory research focused on the recovery and analysis of digital evidence from Unmanned Aerial Systems (UAS).', tags: ['Forensics', 'Data Analysis'], techNote: 'Python | Forensics Tools', color: 'red', icon: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z', github: '#', paper: '#' },
+                { id: 5, title: 'Hybrid Predictive Maintenance', category: 'AI/ML & NLP', desc: "ML model for predictive maintenance using NASA's CMAPSS dataset. Focused on early fault detection.", tags: ['Python', 'Scikit-learn'], techNote: 'Python | Pandas | ML', color: 'indigo', icon: 'M19 14V8H5v6M19 8V2H5v6' },
+                { id: 11, title: 'Yoga Pose Search', category: 'AI/ML & NLP', desc: "Built a pose-recognition prototype that detects and identifies yoga postures using AI.", tags: ['OpenCV', 'AI Tools'], techNote: 'Python | OpenCV', color: 'indigo', icon: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z' },
+                { id: 10, title: 'Digital Wellbeing Analysis', category: 'Cybersecurity & Forensics', desc: 'Analyzing behavioral data and online habits to raise awareness of digital safety patterns.', tags: ['Pandas', 'Visualization'], techNote: 'Python | Pandas | Web Viz', color: 'red', icon: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z' },
+                { id: 3, title: 'Smart Medicine Return', category: 'Web Development', desc: 'Cross-platform Flutter application for medicine disposal and supply chain visibility using IoT concepts.', tags: ['Flutter', 'Firebase'], techNote: 'Flutter | Firebase', color: 'teal', icon: 'M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zM22 6L12 13 2 6', github: '#', demo: '#' },
+                { id: 6, title: 'Student Grade System', category: 'Web Development', desc: 'Web server built with Flask to handle secure CRUD operations and data management for student grades.', tags: ['Flask', 'Python'], techNote: 'Flask | Python | CSV', color: 'teal', icon: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z' },
+                { id: 8, title: 'Library Management', category: 'Web Development', desc: 'Full-featured web application created to manage book inventory, users, and borrowing operations.', tags: ['HTML', 'JS', 'CRUD'], techNote: 'HTML | CSS | JavaScript', color: 'teal', icon: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z' },
+            ],
+            cyberEngagements: [
+                { title: 'Hack The Box', desc: 'Active Member — Regularly solving cybersecurity challenges, practicing ethical hacking labs, and improving penetration testing skills.', icon: 'M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-8 8 3.59 8 8-3.59 8-8 8z' }
+            ],
+            experience: [
+                { role: 'AI/ML Intern', company: 'CSIR-IICT', desc: 'Applied machine learning techniques to real-world healthcare and biotech data.' },
+                { role: 'Member', company: 'Student Council', desc: 'Contributed to university governance, policy discussions, and campus initiatives.' },
+                { role: 'Design Team', company: 'Arts Club', desc: 'Managed visual identity for 5+ major events, designing promotional materials.' },
+                { role: 'Secretary', company: 'Swimming Club', desc: 'Streamlined club communications and managed logistics for competitions.' },
+            ],
+            achievements: [
+                "AIRO Swimming Relay - 2nd Prize", "Winner - Inter DPS Swimming Competition", "2nd Prize - Shadow Strikers Team",
+                "Qublitz Hackathon - Prototype Builder", "Web Development - Corizo Certification", "Math Olympiad - 7th Rank"
+            ],
+            extra: ["Sketching & Painting", "Abacus Graduate", "Singing Competition Winner", "Swimming & Dancing"]
+        };
+
+        // --- SVG HELPER ---
+        function getIcon(path, className="w-6 h-6") {
+            return `<svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${path}" /></svg>`;
+        }
+
+        // --- RENDER FUNCTIONS ---
+
+        function renderFeatured() {
+            const featuredIDs = [1, 9, 2, 4]; 
+            const featured = portfolioData.projects.filter(p => featuredIDs.includes(p.id));
+            
+            document.getElementById('featured-projects-grid').innerHTML = featured.map(p => `
+                <div onclick="filterAndScroll('${p.category}')" class="cursor-pointer bg-white dark:bg-gray-800 p-4 rounded-xl shadow-lg border-t-4 ${p.color === 'indigo' ? 'border-indigo-500' : 'border-red-500'} transform hover:scale-105 transition duration-300 group">
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full text-white ${p.color === 'indigo' ? 'bg-indigo-600' : 'bg-red-600'} mb-2 inline-block group-hover:opacity-80 transition">${p.category.split(' ')[0]}</span>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white truncate group-hover:text-indigo-500 dark:group-hover:text-teal-400 transition">${p.title}</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">${p.desc}</p>
+                </div>
+            `).join('');
+        }
+
+        function renderBio() {
+            // FORMAT TEXT Helper (Bold)
+            const format = (text) => text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            
+            document.getElementById('bio-container').innerHTML = `
+                <div class="p-6 rounded-xl bg-gray-50 dark:bg-gray-700/50 border border-gray-100 dark:border-gray-700 shadow-sm">
+                    <p>${format(portfolioData.bio.paragraph1)}</p>
+                </div>
+                <div class="p-6 rounded-xl bg-gray-50 dark:bg-gray-700/50 border-l-4 border-teal-400 shadow-sm">
+                    <h3 class="text-xl font-semibold text-indigo-600 dark:text-teal-400 mb-2">Academic Background</h3>
+                    <p class="font-medium">Integrated B.Tech + M.Tech in CSE</p>
+                    <p class="text-sm mt-1">Mahindra University | Expected 2028 | <strong class="text-indigo-600 dark:text-teal-300">CGPA: 8.6/10.0</strong></p>
+                    
+                    <p class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">${format(portfolioData.bio.paragraph2)}</p>
+                </div>
+            `;
+        }
+
+        function renderCoreStack() {
+            document.getElementById('core-stack-container').innerHTML = portfolioData.techStack.map(t => `
+                <div class="flex flex-col items-center justify-center p-4 bg-gray-100 dark:bg-gray-700 rounded-xl shadow-md transform hover:scale-105 transition duration-200 hover:shadow-lg">
+                     ${getIcon(t.icon, "w-8 h-8 text-indigo-600 dark:text-teal-400 mb-1")}
+                     <span class="text-xs font-medium text-gray-700 dark:text-gray-300 text-center">${t.name}</span>
+                </div>
+            `).join('');
+        }
+
+        function renderTimeline() {
+            document.getElementById('timeline-container').innerHTML = portfolioData.milestones.map(m => `
+                <div class="relative mb-8">
+                    <div class="absolute w-4 h-4 bg-indigo-600 dark:bg-teal-400 rounded-full -left-[34px] top-1 border-4 border-white dark:border-gray-800"></div>
+                    <span class="text-xs font-bold text-indigo-600 dark:text-teal-400 uppercase">${m.year}</span>
+                    <h4 class="text-lg font-bold text-gray-900 dark:text-white">${m.title}</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">${m.desc}</p>
+                </div>
+            `).join('');
+        }
+
+        function renderSkills() {
+            document.getElementById('skills-container').innerHTML = portfolioData.skills.map(s => `
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border-t-4 ${s.color} hover:shadow-xl transition">
+                    <div class="flex items-center mb-4 text-gray-900 dark:text-white">
+                        ${getIcon(s.icon, "w-6 h-6 mr-2")}
+                        <h3 class="text-xl font-semibold">${s.category}</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        ${s.items.map(item => `<span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-sm rounded-full text-gray-700 dark:text-gray-300">${item}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderProjects(filter = 'All') {
+            const container = document.getElementById('projects-grid');
+            const btns = document.getElementById('filter-buttons').children;
+            
+            Array.from(btns).forEach(btn => {
+                if (btn.innerText === filter || (filter.includes('AI') && btn.innerText.includes('AI')) || (filter.includes('Web') && btn.innerText.includes('Web')) || (filter.includes('Cyber') && btn.innerText.includes('Cyber'))) {
+                    btn.className = "px-5 py-2 rounded-full font-semibold bg-indigo-600 text-white shadow-md transition";
+                } else {
+                    btn.className = "px-5 py-2 rounded-full font-semibold bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition";
+                }
+            });
+
+            const filtered = filter === 'All' ? portfolioData.projects : portfolioData.projects.filter(p => p.category === filter);
+
+            container.innerHTML = filtered.map(p => {
+                let themeColor = p.color === 'indigo' ? 'text-indigo-600' : (p.color === 'red' ? 'text-red-600' : 'text-teal-600');
+                let borderColor = p.color === 'indigo' ? 'hover:border-indigo-400' : (p.color === 'red' ? 'hover:border-red-400' : 'hover:border-teal-400');
+                
+                return `
+                <div onclick="openModal(${p.id})" class="cursor-pointer bg-gray-50 dark:bg-gray-700 p-6 rounded-xl shadow-lg border-t-4 border-transparent ${borderColor} transition transform hover:-translate-y-1 group">
+                    <div class="flex justify-between items-start">
+                        ${getIcon(p.icon, "w-8 h-8 mb-3 " + themeColor)}
+                        <span class="text-xs text-gray-400">More Info ↗</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-1 text-gray-900 dark:text-white">${p.title}</h3>
+                    <p class="text-xs font-bold ${themeColor} dark:text-${p.color}-400 mb-3 uppercase">${p.category}</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">${p.desc}</p>
+                    <p class="text-xs font-semibold mb-2 text-gray-500 dark:text-gray-400">Stack: <span class="${themeColor} dark:text-white">${p.techNote}</span></p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        ${p.tags.map(t => `<span class="text-xs px-2 py-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-full text-gray-600 dark:text-gray-300">${t}</span>`).join('')}
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        function renderCyber() {
+            document.getElementById('cyber-container').innerHTML = portfolioData.cyberEngagements.map(c => `
+                <div class="w-full md:w-96 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg border-l-4 border-red-500 hover:shadow-2xl transition duration-300">
+                    <div class="flex items-center mb-3">
+                         ${getIcon(c.icon, "w-6 h-6 text-red-600 dark:text-red-400 mr-3")}
+                         <h4 class="text-xl font-semibold text-gray-900 dark:text-white">${c.title}</h4>
+                    </div>
+                    <p class="text-gray-700 dark:text-gray-300 text-sm">${c.desc}</p>
+                </div>
+            `).join('');
+        }
+
+        function renderAchievements() {
+            document.getElementById('experience-container').innerHTML = portfolioData.experience.map(e => `
+                <div class="border-l-4 border-indigo-200 dark:border-teal-700 pl-4">
+                    <p class="text-lg font-semibold text-gray-900 dark:text-white">${e.role} @ ${e.company}</p>
+                    <p class="text-gray-700 dark:text-gray-300 text-sm">${e.desc}</p>
+                </div>
+            `).join('');
+            document.getElementById('awards-list').innerHTML = portfolioData.achievements.map(a => `<li>${a}</li>`).join('');
+            document.getElementById('extra-list').innerHTML = portfolioData.extra.map(e => `
+                <span class="px-3 py-1 bg-indigo-100 dark:bg-gray-600 text-indigo-800 dark:text-teal-300 text-sm font-medium rounded-full">${e}</span>
+            `).join('');
+        }
+
+        // --- MODAL LOGIC ---
+        function openModal(id) {
+            const project = portfolioData.projects.find(p => p.id === id);
+            if(!project) return;
+            const modal = document.getElementById('project-modal');
+            const content = document.getElementById('modal-content');
+            let themeColor = project.color === 'indigo' ? 'text-indigo-600' : (project.color === 'red' ? 'text-red-600' : 'text-teal-600');
+            let bgColor = project.color === 'indigo' ? 'bg-indigo-600' : (project.color === 'red' ? 'bg-red-600' : 'bg-teal-600');
+            
+            // ICONS FOR BUTTONS
+            const GitHubIcon = 'M15 22.1C10.7 22.1 7 19.3 7 15.3c0-3.3 2.1-5.7 5.1-6.5l.7-.2c.7-.2 1.5-.4 2.3-.6l-.7-.2c-3.1-.9-5.3-3.9-5.3-7.1 0-3.9 3.4-7 7.7-7 4.3 0 7.7 3.1 7.7 7.1 0 3.2-2.2 6.2-5.3 7.1l-.7.2c.8.2 1.6.4 2.3.6l-.7.2c3.1.8 5.1 3.2 5.1 6.5 0 4-3.7 6.8-7.9 6.8z';
+            const LinkIcon = 'M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71';
+            const PaperIcon = 'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zM14 2v6h6';
+
+            content.innerHTML = `
+                <div class="sticky top-0 p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex justify-between items-center z-10">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">${project.title}</h2>
+                    <button onclick="closeModal()" class="text-gray-500 hover:text-gray-900 dark:hover:text-white p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <p class="text-sm font-medium uppercase mb-3 ${themeColor}">${project.category}</p>
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Technical Summary</h3>
+                        <p class="text-md text-gray-700 dark:text-gray-300">Stack: <span class="font-medium ${themeColor}">${project.techNote}</span></p>
+                    </div>
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Full Description</h3>
+                        <p class="text-gray-700 dark:text-gray-300 whitespace-pre-line leading-relaxed">${project.desc}</p>
+                    </div>
+                    <div class="flex space-x-4 border-t pt-4 border-gray-200 dark:border-gray-700">
+                        ${project.github && project.github !== '#' ? `<a href="${project.github}" target="_blank" class="flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition">${getIcon(GitHubIcon, "w-5 h-5 mr-2")} View on GitHub</a>` : ''}
+                        ${project.demo && project.demo !== '#' ? `<a href="${project.demo}" target="_blank" class="flex items-center px-4 py-2 text-white rounded-lg ${bgColor} hover:opacity-90 transition">${getIcon(LinkIcon, "w-5 h-5 mr-2")} View Live Demo</a>` : ''}
+                        ${project.paper ? `<a href="${project.paper}" target="_blank" class="flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">${getIcon(PaperIcon, "w-5 h-5 mr-2")} View Research Paper</a>` : ''}
+                    </div>
+                </div>
+            `;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('project-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function filterAndScroll(category) {
+            renderProjects(category);
+            const projectsSection = document.getElementById('projects');
+            const y = projectsSection.getBoundingClientRect().top + window.scrollY - 100;
+            window.scrollTo({top: y, behavior: 'smooth'});
+        }
+
+        window.onload = () => {
+            renderFeatured(); 
+            renderBio(); 
+            renderTimeline();
+            renderCoreStack(); 
+            renderSkills();
+            renderProjects('All');
+            renderCyber();
+            renderAchievements();
+        };
+
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+        const html = document.documentElement;
+
+        function updateThemeIcon() {
+            if (html.classList.contains('dark')) { sunIcon.classList.remove('hidden'); moonIcon.classList.add('hidden'); } 
+            else { sunIcon.classList.add('hidden'); moonIcon.classList.remove('hidden'); }
+        }
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) { html.classList.add('dark'); } 
+        else { html.classList.remove('dark'); }
+        updateThemeIcon();
+        themeToggle.addEventListener('click', () => { html.classList.toggle('dark'); localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light'; updateThemeIcon(); });
+
+        const texts = ["Exploring Intelligence — from Drones to Data. 🤖", "Bridging AI, Web, and Cyber Worlds. 🌐", "Creative Technologist & Innovator. 🚀"];
+        let count = 0, index = 0, currentText = '', letter = '';
+        (function type() {
+            if (count === texts.length) { count = 0; }
+            currentText = texts[count];
+            letter = currentText.slice(0, ++index);
+            document.getElementById('typing-text').textContent = letter;
+            if (letter.length === currentText.length) { count++; index = 0; setTimeout(type, 2000); } 
+            else { setTimeout(type, 50); }
+        }());
+
+        window.addEventListener("scroll", () => {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                if (reveals[i].getBoundingClientRect().top < window.innerHeight - 150) reveals[i].classList.add("active");
+            }
+        });
+    </script>
+</body>
+</html>
